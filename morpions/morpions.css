@@ -1,0 +1,16 @@
+
+.btn {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 3px;
+    color : whitesmoke;
+    border-color: whitesmoke;
+}
+
+#board {
+    margin: 0;
+    padding: 0;
+    width: 30%;
+    height: auto;
+    position: relative;
+}
