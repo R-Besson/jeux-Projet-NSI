@@ -1,29 +1,69 @@
+
 * {
-    color: whitesmoke;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
     margin: 0 0 0 0;
-    padding: 1px;
+    padding : 1px;
     background-color: rgb(36, 36, 36);
     color: whitesmoke;
-    padding : 1px;
-    margin: 0 0 0 0;
 }
 
-button {
-    width: max-content;
-    background-color: yellow;
-    border: none;
+.side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px 5px;
+    position: fixed;
+    width: 200px;
+    height: 100vh;
+    background-color: #010203;
+    overflow: auto;
+    font-size: 20px;
+}
+
+.main-content {
+    height: 100vh;
+    margin-left: 200px;
+    overflow: auto;
+    text-align: center;
+}
+
+.logo{
+    margin: 0;
+    padding: 0;
+    margin-left: 2.5%;
+    width: 85%;
+    position : relative;
+}
+
+h1 {
+    font-size : 60px;
+}
+
+.intro {
+    background-color: rgba(112, 110, 110, 0.646);
+    height: auto;
     border-radius: 5px;
-    color: rgb(30, 30, 30);
+    text-align: center;
+    box-shadow: 2px;
+    font-size : 16px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+.jeux{
+    font-weight: bold;
+    font-size: 24px;
+    float : left;
+    margin-left : 10%;
+    margin-top : 10%;
 }
 
 a {
     color: whitesmoke;
-    -webkit-transition: color .5s; /* For Safari 3.0 to 6.0 */
-    transition: color .5s; /* For modern browsers */
 }
 a:link {
     color: whitesmoke;
@@ -38,21 +78,4 @@ a:visited {
 a:active {
     color: whitesmoke;
     background-color: transparent;
-}
-
-#sidePanel {
-    padding: 5px 5px;
-    position: fixed;
-    width: 200px;
-    height: 100vh;
-    background-color: #010203;
-    overflow: auto;
-    font-size: 20px;
-}
-#mainContent {
-    margin: 0 0 0 0;
-    text-align: center;
-    margin-left: 200px;
-    height: 100vh;
-    width: calc(100vw - 190px);
 }

@@ -81,3 +81,25 @@ function win_condition() {
 // while (IsPlaying) {
 //     // click()
 // }
+
+
+// function click(){
+//     rect.addEventListener('click', function(event) {
+//         console.log(x, y)
+//     });
+// }
+
+function win_condition() {
+    for (let x = 0; x < 3; x++)
+    {
+        x_values += cases[x];
+        for (let y = 0; y < 3; y++)
+        {
+            y_values += cases[y];
+        }
+    }  
+}
+
+// while (IsPlaying) {
+//     // click()
+// }
