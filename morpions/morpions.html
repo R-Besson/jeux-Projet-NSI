@@ -3,17 +3,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Page Home</title>
-        <link rel="stylesheet" href="style.css">
+        <title>N.R. games</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="morpions.css">
     </head>
-
+    
     <body>
-        <div><svg id="board"></svg></div>
+        <div class="side-panel">
+            <a href="../index.html">Home</a>
+            <a href="morpions.html"><b>Morpions</b></a>
+        </div>
+        
+        <div class="main-content">
+            <h1>Morpions</h1>
+            <p class="intro"> Voici notre jeu de Morpion ! <br> Choississez de jouer contre vos amis, ou contre l'ordinateur pour vous exercer !</p>
+            
+            <svg id="board"></svg><br>
+            <br>
+            <button class="btn" id="pp">Joueur vs Joueur</button>
+            <button class="btn" id="pc">Joueur vs Ordinateur</button>
+        </div>
 
-        <button id="pp">Player vs Player</button>
-        <button id="pc">Player vs Computer</button>
-
-        <!-- scripts -->
-        <script src="./script.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>
