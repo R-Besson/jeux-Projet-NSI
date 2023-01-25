@@ -1,26 +1,31 @@
-var board = document.getElementById("board")
-var playerVsPlayer = document.getElementById("pp")
-var playerVsComputer = document.getElementById("pc")
-var IsPlaying = false;
 const States = {
     Empty: 0,
-    P1: 1,
-    P2: -1
+    X: 1,
+    O: -1
 }
-var x_values = 0;
-var y_values = 0;
 
-var cases = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0]
-];
+class Case {
+    constructor(state, element)
+    {
+        this.state = state
+        this.htmlElement = element
+    }
+}
+
+
+var boardSvg = document.getElementById("board")
+var playerVsPlayer = document.getElementById("pp")
+var playerVsComputer = document.getElementById("pc")
+
+var IsPlaying = false;
+var board = [[0,0,0],[0,0,0],[0,0,0]];
 
 // Initializer les cases du morpions
 function initBoard()
 {
-    board.style.height = board.clientWidth + "px";
-    let squareSize = board.clientWidth / 3;
+    boardSvg.innerHTML = "";
+    boardSvg.style.height = boardSvg.clientWidth + "px";
+    let squareSize = boardSvg.clientWidth / 3;
     for (let x = 0; x < 3; x++)
     {
         for (let y = 0; y < 3; y++)
@@ -35,7 +40,8 @@ function initBoard()
             rect.setAttribute('stroke','white');
             rect.setAttribute('stroke-width',"5px")
 
-            board.appendChild(rect);
+            boardSvg.appendChild(rect);
+            board[x][y] = new Case(States.Empty, rect);
             IsPlaying = true;
         }
     }
@@ -44,21 +50,31 @@ initBoard()
 
 function mouseIn(x,y,w,h, mouseX,mouseY)
 {
-    
+    return mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h;
 }
-document.body.addEventListener('click', function(event) {
+document.body.addEventListener('click', (event) => {
+    console.log(event.clientX, event.clientY)
     for (let x = 0; x < 3; x++)
     {
         for (let y = 0; y < 3; y++)
         {
-            if (mouseIn()) {
-                console.log('clicked inside');
+            let element = board[x][y].htmlElement
+            console.log(element.left, element.top)
+            if (mouseIn(element.left, element.top, element.clientWidth, element.clientHeight, event.clientX, event.clientY)) {
+                console.log('clicked inside', x, y);
             }
         }
     }
 });
 
-
+playerVsPlayer.addEventListener("click", (event) => {
+    console.log("pp")
+    initBoard()
+})
+playerVsComputer.addEventListener("click", (event) => {
+    console.log("pc")
+    initBoard()
+})
 
 
 // function click(){
