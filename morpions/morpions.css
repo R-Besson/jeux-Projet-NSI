@@ -13,3 +13,34 @@
     height: auto;
     position: relative;
 }
+
+/* Slider controls */
+.slider {
+    -webkit-appearance: none;
+    height: 10px;
+    background: none;
+    border-radius: 4px;
+    outline: white solid 2px;
+    -webkit-transition: .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #ffffff;
+    cursor: pointer;
+}

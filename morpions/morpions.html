@@ -10,7 +10,7 @@
     
     <body>
         <div class="side-panel">
-            <img class= "logo" src="../img/logo5.png">
+            <img class= "logo" src="../img/logo.png">
             <a href="../index.html">Home</a>
             <a href="morpions.html"><b>Morpions</b></a>
         </div>
@@ -21,6 +21,12 @@
             
             <svg id="board"></svg><br>
             <br>
+            Taille de la Grille <span id="gridSize">3x3</span><br>
+            <input type="range" min="2" max="20" value="3" class="slider" id="gridController"><br><br>
+
+            Symboles pour Gagner <span id="winCondition">3</span><br>
+            <input type="range" min="2" max="20" value="3" class="slider" id="winController"><br><br>
+
             <button class="btn" id="pp">Joueur vs Joueur</button>
             <button class="btn" id="pc">Joueur vs Ordinateur</button>
         </div>
