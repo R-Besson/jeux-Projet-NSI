@@ -4,6 +4,7 @@ const States = {
     O: -1
 }
 
+
 class Case {
     constructor(state, element)
     {
@@ -16,9 +17,11 @@ class Case {
 var boardSvg = document.getElementById("board")
 var playerVsPlayer = document.getElementById("pp")
 var playerVsComputer = document.getElementById("pc")
+var hey = document.getElementById("popup")
 
 var IsPlaying = false;
 var board = [[0,0,0],[0,0,0],[0,0,0]];
+var winner = "none";
 
 // Initializer les cases du morpions
 function initBoard()
@@ -83,17 +86,6 @@ playerVsComputer.addEventListener("click", (event) => {
 //     });
 // }
 
-function win_condition() {
-    for (let x = 0; x < 3; x++)
-    {
-        x_values += cases[x];
-        for (let y = 0; y < 3; y++)
-        {
-            y_values += cases[y];
-        }
-    }  
-}
-
 // while (IsPlaying) {
 //     // click()
 // }
@@ -104,6 +96,17 @@ function win_condition() {
 //         console.log(x, y)
 //     });
 // }
+function winner_check(value){
+    if (value == 3){
+        winner = "player 1";
+        IsPlaying = false;
+    }
+    else if (value == -3){
+        winner = "player 2";
+        IsPlaying = false;
+    }
+}
+
 
 function win_condition() {
     for (let x = 0; x < 3; x++)
@@ -111,9 +114,23 @@ function win_condition() {
         x_values += cases[x];
         for (let y = 0; y < 3; y++)
         {
-            y_values += cases[y];
+            y_values += cases[x,y];
         }
-    }  
+        winner_check(y_values);
+        y_values = 0;
+       
+        }  
+        winner_check(x_values);
+        x_values = 0;
+
+        x_values = cases[1,1] + cases[2,2] + cases[3,3]
+        winner_check(x_values);
+        x_values = 0;
+
+        x_values = cases[3,1] + cases[2,2] + cases[1,3]
+        winner_check(x_values);
+        x_values = 0;
+        
 }
 
 // while (IsPlaying) {
