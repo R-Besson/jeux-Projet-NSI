@@ -50,18 +50,19 @@ function initBoard()
 initBoard()
 
 // Add Symbol to Board (move)
-function changeState(x, y, state)
+function changeState(x, y, squareSize, state)
 {
     board[x][y].state = state
 
     let rect = board[x][y].htmlElement
-    
     let symbol = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse')
-    symbol.setAttribute("rx", 40.5)
-    symbol.setAttribute("ry", 40.5)
-    symbol.setAttribute("cy", rect.getAttribute("x") + 50)
-    symbol.setAttribute("cx", rect.getAttribute("y") + 50)
-    console.log(symbol)
+    symbol.setAttribute("rx", parseInt(rect.getAttribute("width"))/2-10)
+    symbol.setAttribute("ry", parseInt(rect.getAttribute("height"))/2-10)
+    symbol.setAttribute("cx", parseInt(rect.getAttribute("x")) + squareSize/2)
+    symbol.setAttribute("cy", parseInt(rect.getAttribute("y")) + squareSize/2)
+    symbol.setAttribute("stroke", "#FFF")
+    symbol.setAttribute("stroke-width", "6")
+    symbol.setAttribute("fill", "none")
     boardSvg.appendChild(symbol)
 }
 
@@ -80,7 +81,7 @@ document.body.addEventListener('click', (event) => {
         {
             let zone = board[x][y].htmlElement.getBoundingClientRect()
             if (board[x][y].state == States.Empty && mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY)) {
-                changeState(x, y, turn)
+                changeState(x, y, zone.width, turn)
                 console.log(x,y,turn)
             }
         }
