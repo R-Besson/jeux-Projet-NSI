@@ -8,7 +8,6 @@ const States = {
     O: -1
 }
 
-
 // Classe 'Case' qui contient le symbole de la case et l'élément <svg> associé
 class Case {
     constructor(state, element)
@@ -20,12 +19,9 @@ class Case {
 
 // La <svg> grille
 var boardSvg = document.getElementById("board")
-var playerVsPlayer = document.getElementById("pp")
-var playerVsComputer = document.getElementById("pc")
 
 var isPlaying = true;
 var turn, board;
-var winner = "none";
 
 // Effacer les contenus de la grille
 function clearBoard()
@@ -188,8 +184,11 @@ function isLine(x, y, symbol)
 }
 
 // Events
+let winnerText = document.getElementById("winner")
+
 document.body.addEventListener('click', (event) => {
     // Si le jeu n'est pas en cours on return
+    
     if (!isPlaying) return
 
     // Si le clic ne s'est pas produit dans le tableau <svg>
@@ -214,6 +213,7 @@ document.body.addEventListener('click', (event) => {
                     // Win condition = ligne formée
                     drawLine(line[0].htmlElement, line[1].htmlElement)
                     isPlaying = false // Jeu pas en cours
+                    winnerText.innerHTML = turn == States.O ? "Player O  " : "Player X  ";
                 }
 
                 played = true; break // Le joueur a joué
@@ -239,3 +239,17 @@ playerVsComputer.addEventListener("click", (event) => {
     console.log("pc")
     initBoard()
 })
+
+
+// CSS Related
+let gridSizeOutput = document.getElementById("gridSize")
+document.getElementById("gridController").oninput = function() {
+    gridSize = this.value
+    gridSizeOutput.innerHTML = this.value + "x" + this.value;
+}
+let winConditionOutput = document.getElementById("winCondition")
+document.getElementById("winController").oninput = function() {
+    winCondition = this.value
+    winConditionOutput.innerHTML = this.value;
+}
+
