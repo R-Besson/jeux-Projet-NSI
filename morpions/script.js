@@ -35,18 +35,18 @@ function initBoard()
     // Init. variables par défaut
     turn = States.X;
     isPlaying = true
-    board = Array.from({length: gridSize}, _ => new Array(gridSize).fill(0));
+    board = Array.from({length: gridSize}, _ => new Array(gridSize).fill(0)); // wtf
 
-    boardSvg.style.height = boardSvg.clientWidth + "px";
+    boardSvg.style.height = boardSvg.clientWidth + "px"; // why then doesn't it take all the width
     clearBoard()
     let squareSize = boardSvg.clientWidth / gridSize;
     for (let x = 0; x < gridSize; x++)
     {
         for (let y = 0; y < gridSize; y++)
         {
-            let square = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+            let square = document.createElementNS("http://www.w3.org/2000/svg", 'rect'); // whats create element NS
 
-            square.setAttribute('x', x*squareSize);
+            square.setAttribute('x', x*squareSize); // what does it do
             square.setAttribute('y', y*squareSize);
             square.setAttribute('height', squareSize);
             square.setAttribute('width', squareSize);
@@ -54,17 +54,17 @@ function initBoard()
             square.setAttribute('stroke','white');
             square.setAttribute('stroke-width', 1)
 
-            boardSvg.appendChild(square);
-            board[x][y] = new Case(States.Empty, square);
+            boardSvg.appendChild(square); // hmmm
+            board[x][y] = new Case(States.Empty, square); // ok....
         }
     }
 }
 initBoard()
 
-// Ajouter le symbole a la grille et le dessiner
+// Ajouter le symbole a la grille et le dessiner Just WTF
 function changeSymbol(x, y, state)
 {
-    board[x][y].state = state
+    board[x][y].state = state // ok....
 
     let rect = board[x][y].htmlElement
     let squareX = parseInt(rect.getAttribute("x")),
@@ -115,7 +115,7 @@ function drawLine(start, end)
     line.setAttribute("stroke-width", squareSize/7)
     line.setAttribute("stroke-linecap", "square")
     line.setAttribute("opacity", "0.9")
-    line.setAttribute("d", `M ${startX+squareSize/2},${startY+squareSize/2} ${endX+squareSize/2},${endY+squareSize/2}`)
+    line.setAttribute("d", `M ${startX+squareSize/2},${startY+squareSize/2} ${endX+squareSize/2},${endY+squareSize/2}`) // especially that...
     boardSvg.appendChild(line)
 }
 
@@ -132,7 +132,7 @@ function mouseIn(x,y,w,h, mouseX,mouseY)
 }
 
 // Pour determiner si il y a une ligne dans les 4 orientations
-function isLine(x, y, symbol)
+function isLine(x, y, symbol) // réexpliquer toute la fonction
 {
     // Directions: Verticale, Horizontale, Diagonales
     let dirsX = [1,0,1,1]
@@ -183,7 +183,7 @@ function isLine(x, y, symbol)
     return null
 }
 
-// Events
+// Events donc le main ?
 let winnerText = document.getElementById("winner")
 
 document.body.addEventListener('click', (event) => {
@@ -241,7 +241,7 @@ playerVsComputer.addEventListener("click", (event) => {
 })
 
 
-// CSS Related
+// CSS Related // what is this ?
 let gridSizeOutput = document.getElementById("gridSize")
 document.getElementById("gridController").oninput = function() {
     gridSize = this.value
