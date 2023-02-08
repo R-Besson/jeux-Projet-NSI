@@ -1,7 +1,15 @@
+// ----------------------- GLOBAL VARIABLES -----------------------//
+
 var gridSize = 3; // Taille (SxS) de la grille, par default: 3x3
 var winCondition = 3; // by default 3 symbols to win
 
-// Symboles disponibles
+var isPlaying = true;
+var turn, board;
+
+var boardSvg = document.getElementById("board") // La <svg> grille
+
+
+// Enum: Symboles disponibles
 const States = {
     Empty: 0,
     X: 1,
@@ -17,11 +25,8 @@ class Case {
     }
 }
 
-// La <svg> grille
-var boardSvg = document.getElementById("board")
+// ----------------------- FUNCTIONS -----------------------//
 
-var isPlaying = true;
-var turn, board;
 
 // Effacer les contenus de la grille
 function clearBoard()
@@ -32,14 +37,21 @@ function clearBoard()
 // Initializer le morpion et dessiner les cases
 function initBoard()
 {
-    // Init. variables par défaut
+    clearBoard()
+
+    // Initialiser variables par défaut
     turn = States.X;
     isPlaying = true
-    board = Array.from({length: gridSize}, _ => new Array(gridSize).fill(0)); // wtf
 
-    boardSvg.style.height = boardSvg.clientWidth + "px"; // why then doesn't it take all the width
-    clearBoard()
+    // Allouer la liste 2-Dimensionnelle
+    board = new Array(gridSize)
+    for (let i = 0; i < gridSize; i++)
+        board[i] = new Array(gridSize).fill(States.Empty);
+
+    // On veut un carré donc : height = width
+    boardSvg.style.height = boardSvg.clientWidth + "px";
     let squareSize = boardSvg.clientWidth / gridSize;
+    
     for (let x = 0; x < gridSize; x++)
     {
         for (let y = 0; y < gridSize; y++)
@@ -59,7 +71,6 @@ function initBoard()
         }
     }
 }
-initBoard()
 
 // Ajouter le symbole a la grille et le dessiner Just WTF
 function changeSymbol(x, y, state)
@@ -253,3 +264,5 @@ document.getElementById("winController").oninput = function() {
     winConditionOutput.innerHTML = this.value;
 }
 
+
+initBoard()
