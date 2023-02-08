@@ -1,18 +1,20 @@
+// ----------------------- GLOBAL VARIABLES -----------------------//
 
-//////////////////////////////////// Global variables ////////////////////////////////////
 var gridSize = 3; // Taille (SxS) de la grille, par default: 3x3
 var winCondition = 3; // by default 3 symbols to win
-var isPlaying = false;
+
+var isPlaying = true;
 var turn, board;
 
-// Symboles disponibles
+var boardSvg = document.getElementById("board") // La <svg> grille
+
+
+// Enum: Symboles disponibles
 const States = {
     Empty: 0,
-    X:1,
-    O:-1
+    X: 1,
+    O: -1
 }
-
-
 
 // Classe 'Case' qui contient le symbole de la case et l'élément <svg> associé
 class Case {
@@ -23,43 +25,38 @@ class Case {
     }
 }
 
-// La <svg> grille
-var boardSvg = document.getElementById("board")
+// ----------------------- FUNCTIONS -----------------------//
 
 
-
-//////////////////////////////////// Functions ////////////////////////////////////
 // Effacer les contenus de la grille
 function clearBoard()
 {
     boardSvg.innerHTML = "";
 }
 
-
-//////////////////////////////////// Op mode functions ////////////////////////////////////
 // Initializer le morpion et dessiner les cases
-function initBoard(){
+function initBoard()
+{
     clearBoard()
 
-    // Init. variables par défaut
+    // Initialiser variables par défaut
     turn = States.X;
-    isPlaying = true;
+    isPlaying = true
 
-    
+    // Allouer la liste 2-Dimensionnelle
     board = new Array(gridSize)
-    for (let i= 0 ; i<gridSize; i++){
+    for (let i = 0; i < gridSize; i++)
         board[i] = new Array(gridSize).fill(States.Empty);
-    }
 
+    // On veut un carré donc : height = width
     boardSvg.style.height = boardSvg.clientWidth + "px";
-
     let squareSize = boardSvg.clientWidth / gridSize;
-
+    
     for (let x = 0; x < gridSize; x++)
     {
         for (let y = 0; y < gridSize; y++)
         {
-            let square = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+            let square = document.createElementNS("http://www.w3.org/2000/svg", 'rect'); // whats create element NS
 
             square.setAttribute('x', x*squareSize); // what does it do
             square.setAttribute('y', y*squareSize);
@@ -74,7 +71,6 @@ function initBoard(){
         }
     }
 }
-
 
 // Ajouter le symbole a la grille et le dessiner Just WTF
 function changeSymbol(x, y, state)
@@ -269,7 +265,4 @@ document.getElementById("winController").oninput = function() {
 }
 
 
-
-////////////////////////////// Play !! ////////////////////////////////
-
-initBoard();
+initBoard()
