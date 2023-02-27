@@ -202,8 +202,7 @@ function initBoard()
 }
 
 // ----------------------- EVENTS -----------------------//
-let winnerText = document.getElementById("winner")
-
+let winnerText = document.getElementById("winner");
 
 document.body.addEventListener('click', function(event) {
     // Si le jeu n'est pas en cours on return
@@ -217,13 +216,11 @@ document.body.addEventListener('click', function(event) {
         return
 
         
-    let played = false
     for (let x = 0; x < gridSize; x++)
     {
         for (let y = 0; y < gridSize; y++)
         {
             // Zone pour le clique du Carré
-            console.log(board)
             zone = board[x][y].htmlElement.getBoundingClientRect()
             if (board[x][y].state == States.Empty && mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY)) {
                 changeSymbol(x, y, turn)
@@ -233,47 +230,47 @@ document.body.addEventListener('click', function(event) {
                 {
                     // Win condition = ligne formée
                     drawLine(line[0].htmlElement, line[1].htmlElement)
-                    isPlaying = false // Jeu pas en cours
+                    isPlaying = false; // Jeu pas en cours
                     winnerText.innerHTML = turn == States.O ? "Player O  " : "Player X  ";
                 }
 
-                played = true; break // Le joueur a joué
+                break; // Le joueur a joué
             }
         }
     }
 
-    if (played) turn = (turn == States.X) ? States.O : States.X // Changement de tour
+    turn = (turn == States.X) ? States.O : States.X; // Changement de tour
 });
 
 // Bouttons de mode de jeu + reset game
-var playerVsPlayer = document.getElementById("pp") 
-var playerVsComputer = document.getElementById("pc")
+var playerVsPlayer = document.getElementById("pp");
+var playerVsComputer = document.getElementById("pc");
 
 // Mode de jeu (joueur contre joueur)
-playerVsPlayer.addEventListener("click", (event) => {
-    console.log("pp")
-    initBoard()
-})
+playerVsPlayer.addEventListener("click", function(event) {
+    console.log("pp");
+    initBoard();
+});
 
 // Mode de jeu (joueur contre ordinateur (A FAIRE))
-playerVsComputer.addEventListener("click", (event) => {
-    console.log("pc")
-    initBoard()
-})
+playerVsComputer.addEventListener("click", function(event) {
+    console.log("pc");
+    initBoard();
+});
 
 
-// CSS Related // what is this ?
+// CSS Related
 let gridSizeOutput = document.getElementById("gridSize")
 document.getElementById("gridController").oninput = function() {
-    gridSize = this.value
+    gridSize = this.value;
     gridSizeOutput.innerHTML = this.value + "x" + this.value;
 }
 let winConditionOutput = document.getElementById("winCondition")
 document.getElementById("winController").oninput = function() {
-    winCondition = this.value
+    winCondition = this.value;
     winConditionOutput.innerHTML = this.value;
 }
 
 // ----------------------- APPLY -----------------------//
 
-initBoard()
+initBoard();
