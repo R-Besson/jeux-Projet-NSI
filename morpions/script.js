@@ -183,6 +183,7 @@ function sliders()
 function initBoard()
 {
     clearBoard()
+    winnerText.innerHTML = "Personne";
 
     // Initialiser variables par défaut
     turn = States.X;
