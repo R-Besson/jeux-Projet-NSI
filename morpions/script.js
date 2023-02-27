@@ -7,7 +7,7 @@ var isPlaying = true;
 var turn, board;
 
 var boardSvg = document.getElementById("board") // La <svg> grille
-
+let winnerText = document.getElementById("winner");
 
 // Enum: Symboles disponibles
 const States = {
@@ -163,6 +163,20 @@ function findWinnerLine(x, y, symbol)
 
 // ----------------------- OP Mode FUNCTIONS -----------------------//
 
+// CSS Related
+function sliders (){
+    let gridSizeOutput = document.getElementById("gridSize")
+    document.getElementById("gridController").oninput = function() {
+        gridSize = this.value;
+        gridSizeOutput.innerHTML = this.value + "x" + this.value;
+    }
+    let winConditionOutput = document.getElementById("winCondition")
+    document.getElementById("winController").oninput = function() {
+        winCondition = this.value;
+        winConditionOutput.innerHTML = this.value;
+        }
+    }
+
 // Initializer le morpion et dessiner les cases
 function initBoard()
 {
@@ -201,76 +215,67 @@ function initBoard()
     }
 }
 
-// ----------------------- EVENTS -----------------------//
-let winnerText = document.getElementById("winner");
-
-document.body.addEventListener('click', function(event) {
-    // Si le jeu n'est pas en cours on return
-    if (!isPlaying)
-        return
-
-    // Si le clic ne s'est pas produit dans le tableau <svg>
-    // nous quittons (pour pas rentrer dans la coûteuse boucle for)
-    let zone = boardSvg.getBoundingClientRect()
-    if (!mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY))
-        return
-
-        
-    for (let x = 0; x < gridSize; x++)
-    {
-        for (let y = 0; y < gridSize; y++)
+function play(){
+    document.body.addEventListener('click', function(event) {
+        // Si le jeu n'est pas en cours on return
+        if (!isPlaying)
+            return
+    
+        // Si le clic ne s'est pas produit dans le tableau <svg>
+        // nous quittons (pour pas rentrer dans la coûteuse boucle for)
+        let zone = boardSvg.getBoundingClientRect()
+        if (!mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY))
+            return
+    
+            
+        for (let x = 0; x < gridSize; x++)
         {
-            // Zone pour le clique du Carré
-            zone = board[x][y].htmlElement.getBoundingClientRect()
-            if (board[x][y].state == States.Empty && mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY)) {
-                changeSymbol(x, y, turn)
-                
-                let line = findWinnerLine(x, y, turn)
-                if (line)
-                {
-                    // Win condition = ligne formée
-                    drawLine(line[0].htmlElement, line[1].htmlElement)
-                    isPlaying = false; // Jeu pas en cours
-                    winnerText.innerHTML = turn == States.O ? "Player O  " : "Player X  ";
+            for (let y = 0; y < gridSize; y++)
+            {
+                // Zone pour le clique du Carré
+                zone = board[x][y].htmlElement.getBoundingClientRect()
+                if (board[x][y].state == States.Empty && mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY)) {
+                    changeSymbol(x, y, turn)
+                    
+                    let line = findWinnerLine(x, y, turn)
+                    if (line)
+                    {
+                        // Win condition = ligne formée
+                        drawLine(line[0].htmlElement, line[1].htmlElement)
+                        isPlaying = false; // Jeu pas en cours
+                        winnerText.innerHTML = turn == States.O ? "Player O  " : "Player X  ";
+                    }
+    
+                    break; // Le joueur a joué
                 }
-
-                break; // Le joueur a joué
             }
         }
-    }
+    
+        turn = (turn == States.X) ? States.O : States.X; // Changement de tour
+    });}
 
-    turn = (turn == States.X) ? States.O : States.X; // Changement de tour
-});
-
-// Bouttons de mode de jeu + reset game
-var playerVsPlayer = document.getElementById("pp");
-var playerVsComputer = document.getElementById("pc");
-
-// Mode de jeu (joueur contre joueur)
-playerVsPlayer.addEventListener("click", function(event) {
-    console.log("pp");
-    initBoard();
-});
-
-// Mode de jeu (joueur contre ordinateur (A FAIRE))
-playerVsComputer.addEventListener("click", function(event) {
-    console.log("pc");
-    initBoard();
-});
-
-
-// CSS Related
-let gridSizeOutput = document.getElementById("gridSize")
-document.getElementById("gridController").oninput = function() {
-    gridSize = this.value;
-    gridSizeOutput.innerHTML = this.value + "x" + this.value;
-}
-let winConditionOutput = document.getElementById("winCondition")
-document.getElementById("winController").oninput = function() {
-    winCondition = this.value;
-    winConditionOutput.innerHTML = this.value;
-}
+    function reset(){
+        // Bouttons de mode de jeu + reset game
+        var playerVsPlayer = document.getElementById("pp");
+        var playerVsComputer = document.getElementById("pc");
+        
+        // Mode de jeu (joueur contre joueur)
+        playerVsPlayer.addEventListener("click", function(event) {
+            console.log("pp");
+            initBoard();
+        });
+        
+        // Mode de jeu (joueur contre ordinateur (A FAIRE))
+        playerVsComputer.addEventListener("click", function(event) {
+            console.log("pc");
+            initBoard();
+        });
+        }
+    
 
 // ----------------------- APPLY -----------------------//
 
+sliders();
 initBoard();
+play();
+reset();
