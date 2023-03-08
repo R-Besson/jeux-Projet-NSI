@@ -1,23 +1,29 @@
+import {states} from "./game.js";
+
 class AI {
-    constructor(board, gridSize, states) {
-        this.board = board;
-        this.gridSize = gridSize;
-        this.states = states;
+    constructor(game) {
+        this.game = game;
     }
 
     canWin() {
-        for (let x = 0; x < this.gridSize; x++) {
-            for (let y = 0; y < this.gridSize; y++) {
-                if (this.board[x][y].state == states.empty)
+        for (let x = 0; x < this.game.gridSize; x++) {
+            for (let y = 0; y < this.game.gridSize; y++) {
+                if (this.game.board[x][y].state == states.Empty)
                 {
+                    this.game.board[x][y].state = this.turn;
                     
+                    if (this.game.findWinnerLine(x,y,this.turn)) {
+                        this.game.board[x][y].state = states.Empty;
+                        console.log(x,y);
+                        return true;
+                    }
+
+                    this.game.board[x][y].state = states.Empty;
                 }
             }
         }
-    }
 
-    reactV1() {
-        
+        return false;
     }
 };
 

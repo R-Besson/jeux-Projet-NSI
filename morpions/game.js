@@ -15,21 +15,66 @@ class Case {
 }
 
 class Game {
-    constructor(){}
+    constructor(gridSize, winCondition, svg, winnerText)
+    {
+        this.gridSize = gridSize;
+        this.winCondition = winCondition;
+        this.svg = svg;
+        this.winnerText = winnerText;
+        this.turn = states.X
+
+        this.clearBoard()
+        this.winnerText.innerHTML = "Personne n'";
+
+        // Initialiser variables par défaut
+        this.isPlaying = true
+
+        this.resizeBoard();
+        
+        // On veut un carré donc : height = width 
+        this.svg.style.height = this.svg.clientWidth + "px";
+        let squareSize = this.svg.clientWidth / this.gridSize;
+        
+        for (let x = 0; x < this.gridSize; x++)
+        {
+            for (let y = 0; y < this.gridSize; y++)
+            {
+                let square = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+
+                square.setAttribute('x', x*squareSize);
+                square.setAttribute('y', y*squareSize);
+                square.setAttribute('height', squareSize);
+                square.setAttribute('width', squareSize);
+                square.setAttribute('fill', "none")
+                square.setAttribute('stroke','white');
+                square.setAttribute('stroke-width', 1)
+
+                this.svg.appendChild(square);
+                this.board[x][y] = new Case(states.Empty, square);
+            }
+        }
+    }
+
+    resizeBoard() {
+        this.board = new Array(this.gridSize)
+        for (let i = 0; i < this.gridSize; i++) {
+            this.board[i] = new Array(this.gridSize).fill(states.Empty);
+        }
+    }
 
     // ----------------------- FUNCTIONS -----------------------//
     // Effacer les contenus de la grille
     clearBoard()
     {
-        boardSvg.innerHTML = "";
+        this.svg.innerHTML = "";
     }
 
     // Ajouter le symbole a la grille et le dessiner
     changeSymbol(x, y, newState)
     {
-        board[x][y].state = newState
+        this.board[x][y].state = newState
 
-        let rect = board[x][y].htmlElement;
+        let rect = this.board[x][y].htmlElement;
         let squareX = parseInt(rect.getAttribute("x")),
             squareY = parseInt(rect.getAttribute("y")),
             squareSize = parseInt(rect.getAttribute("width"))
@@ -60,7 +105,7 @@ class Game {
         } else {
             return;
         }
-        boardSvg.appendChild(symbol)
+        this.svg.appendChild(symbol)
     }
 
 
@@ -82,13 +127,13 @@ class Game {
         line.setAttribute("stroke-linecap", "square")
         line.setAttribute("opacity", "0.9")
         line.setAttribute("d", `M ${startX+squareSize/2},${startY+squareSize/2} ${endX+squareSize/2},${endY+squareSize/2}`)
-        boardSvg.appendChild(line)
+        this.svg.appendChild(line)
     }
 
     // Pour determiner si (x,y) est une case valide de la grille
     inBoard(x,y)
     {
-        return x >= 0 && y >= 0 && x < gridSize && y < gridSize
+        return x >= 0 && y >= 0 && x < this.gridSize && y < this.gridSize
     }
 
     // Pour determiner si la souris est dans la zone de la boîte
@@ -111,31 +156,31 @@ class Game {
             
             // Combien de symboles sont devant et dèrriere the (x,y) square dans chaque orientation
             // 'back' and 'front' => extrémités de la ligne finale
-            let backward = 0, back = board[x][y]
-            let forward = 0, front = board[x][y]
+            let backward = 0, back = this.board[x][y]
+            let forward = 0, front = this.board[x][y]
 
             // Loop for qui regarde dèrriere, tant que pas d'intersection avec un symbol d'un autre type
-            for (let step = 1; step <= winCondition; step++)
+            for (let step = 1; step <= this.winCondition; step++)
             {
                 let newX = x-step*dx,
                     newY = y-step*dy
-                if (inBoard(newX, newY) && board[newX][newY].state == symbol) {
+                if (this.inBoard(newX, newY) && this.board[newX][newY].state == symbol) {
                     // Symbole de meme type sur la direction actuel
                     backward++
-                    back = board[newX][newY] // Update l'éxtremité
+                    back = this.board[newX][newY] // Update l'éxtremité
                 } else {
                     break // Symbole different rencontré donc ce n'est pas une ligne continue
                 }
             }
             // Loop for qui regarde devant, tant que pas d'intersection avec un symbol d'un autre type
-            for (let step = 1; step <= winCondition; step++)
+            for (let step = 1; step <= this.winCondition; step++)
             {
                 let newX = x+step*dx,
                     newY = y+step*dy
-                if (inBoard(newX, newY) && board[newX][newY].state == symbol) {
+                if (this.inBoard(newX, newY) && this.board[newX][newY].state == symbol) {
                     // Symbole de meme type sur la direction actuel
                     forward++
-                    front = board[newX][newY] // Update l'éxtremité
+                    front = this.board[newX][newY] // Update l'éxtremité
                 } else {
                     break // Symbole different rencontré donc ce n'est pas une ligne continue
                 }
@@ -143,7 +188,7 @@ class Game {
 
             // S'il y a au moins le nombre de symboles nécessaires pour gagner, c'est une victoire
             // Le "1" vient du carré en (x,y) qui n'est pas compté
-            if (backward + forward + 1 >= winCondition)
+            if (backward + forward + 1 >= this.winCondition)
                 return [back,front]
         }
 
@@ -152,4 +197,4 @@ class Game {
     }
 }
 
-export {states, Case};
+export {states, Case, Game};
