@@ -22,15 +22,16 @@
             <svg id="board"></svg>
             <p id="popup">  <span id="winner">Personne n'</span>a gagné la partie !!</p>
             <br>
-            <br>
             Taille de la Grille <span id="gridSize">3x3</span><br>
             <input type="range" min="2" max="20" value="3" class="slider" id="gridController"><br><br>
 
             Symboles pour Gagner <span id="winCondition">3</span><br>
             <input type="range" min="2" max="20" value="3" class="slider" id="winController"><br><br>
 
-            <button class="btn" id="pp">Joueur vs Joueur</button>
-            <button class="btn" id="pc">Joueur vs Ordinateur</button>
+            <button class="btn" id="pvp">Joueur vs Joueur</button>
+            <button class="btn" id="pvc">Joueur vs Ordinateur</button><br>
+            <button class="btn" id="cvc">Ordinateur vs Ordinateur</button><br>
+            <br>
         </div>
 
         <script src="ai.js" type="module"></script>
