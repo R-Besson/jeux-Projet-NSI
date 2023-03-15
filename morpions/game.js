@@ -39,7 +39,7 @@ class Game {
         
         // On veut un carré donc : height = width 
         this.svg.style.height = this.svg.clientWidth + "px";
-        let squareSize = this.svg.clientWidth / this.gridSize;
+        let squareSize = Math.floor(this.svg.clientWidth / this.gridSize);
         
         for (let x = 0; x < this.gridSize; x++)
         {
@@ -53,7 +53,8 @@ class Game {
                 square.setAttribute('width', squareSize);
                 square.setAttribute('fill', "none")
                 square.setAttribute('stroke','white');
-                square.setAttribute('stroke-width', 1)
+                square.setAttribute('stroke-width', 1);
+                // square.setAttribute('stroke-location', 'inside')
 
                 this.svg.appendChild(square);
                 this.board[x][y] = new Case(states.Empty, square);
