@@ -78,7 +78,7 @@ function play(event)
         return;
         
     // Human(s) turn to play
-    if (!isAI() || (mode == "pvc" && game.turn == states.X && !isThinking)) {
+    if (!isAI() || (mode == "pvc" && game.turn == game.getOppositeSymbol(game.aiTurn) && !isThinking)) {
         // Si le clic ne s'est pas produit dans le tableau <svg>
         // nous quittons (pour pas rentrer dans la coûteuse boucle for)
         let zone = boardSvg.getBoundingClientRect()

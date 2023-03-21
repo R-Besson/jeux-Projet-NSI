@@ -1,3 +1,4 @@
+
 // Enum: Symboles disponibles
 const states = {
     Empty: 0,
@@ -28,6 +29,7 @@ class Game {
         this.svg = svg;
         this.winnerText = winnerText;
         this.turn = states.X;
+        this.aiTurn = this.randomiseSymbol();
 
         this.clearBoard();
         this.winnerText.innerHTML = "Personne n'";
@@ -79,6 +81,11 @@ class Game {
     getOppositeSymbol(symbol)
     {
         return symbol == states.X ? states.O : states.X;
+    }
+
+    randomiseSymbol()
+    {
+        return Math.round(Math.random(1,2)) == 1.0 ? states.X : states.O;
     }
 
     // Ajouter le symbole a la grille et le dessiner
