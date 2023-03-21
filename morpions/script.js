@@ -33,7 +33,7 @@ function sliders()
 
 function isAI()
 {
-    return mode == "pvc" || mode == "cvc";
+    return mode == "cvc" || (mode == "pvc" && game.turn == game.aiTurn);
 }
 
 function AIDoMove()
@@ -44,7 +44,8 @@ function AIDoMove()
         let move = ai.getMove();
 
         if (!move) {
-            console.log("AI couldn't find good move");
+            console.log("AI couldn't find move");
+            isThinking = false;
             return;
         }
 
@@ -74,11 +75,11 @@ function AIDoMove()
 function play(event)
 {
     // Si le jeu n'est pas en cours on return
-    if (!game.isPlaying)
+    if (!game.isPlaying || isThinking)
         return;
         
     // Human(s) turn to play
-    if (!isAI() || (mode == "pvc" && game.turn == game.getOppositeSymbol(game.aiTurn) && !isThinking)) {
+    if (!isAI()) {
         // Si le clic ne s'est pas produit dans le tableau <svg>
         // nous quittons (pour pas rentrer dans la coûteuse boucle for)
         let zone = boardSvg.getBoundingClientRect()
@@ -111,7 +112,7 @@ function play(event)
     }
 
     // AI 1's turn to play
-    if (isAI() && !isThinking && game.isPlaying) {
+    if (isAI()) {
         AIDoMove();
     }
 }
