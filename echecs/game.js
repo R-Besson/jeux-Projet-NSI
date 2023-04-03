@@ -38,8 +38,8 @@ const Color = {
 class Game {
     constructor(FEN) {
         this.turn = Color.w;
-        this.nbMoves = 1; // nbMoves = floor(nbPlie/2)+1
-        this.nbPlies = 0; // += 1 after every play by white or black
+        this.nbHalfMoveClock = 0;
+        this.nbMoves = 1; // nbMoves = Number of Moves of Black + 1
 
         this.castling = {
             K: false,    // White can castle kingside
@@ -109,9 +109,10 @@ class Game {
         }
 
         // Half Move Clock
+        this.nbHalfMoveClock = parseInt(halfMoveClock);
 
         // Full Move Number
-        
+        this.nbMoves = parseInt(fullMoveNumber);
     }
 
     printBoard() {
