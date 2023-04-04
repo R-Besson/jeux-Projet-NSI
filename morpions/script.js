@@ -102,6 +102,7 @@ function play(event)
                         game.drawLine(line[0].htmlElement, line[1].htmlElement);
                         game.isPlaying = false; // Jeu pas en cours
                         winnerText.innerHTML = game.turn == states.X ? "Player X  " : "Player O  ";
+                        return;
                     }
 
                     // Changement de tour
