@@ -36,12 +36,21 @@ class Game {
 
         // Initialiser variables par défaut
         this.isPlaying = true;
+        this.isThinking = false;
 
         this.resizeBoard();
         
         // On veut un carré donc : height = width 
         this.svg.style.height = this.svg.clientWidth + "px";
         let squareSize = Math.floor(this.svg.clientWidth / this.gridSize);
+
+        let background = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        background.setAttribute('x', 0);
+        background.setAttribute('y', 0);
+        background.setAttribute('width', squareSize*this.gridSize);
+        background.setAttribute('height', squareSize*this.gridSize);
+        background.setAttribute('fill', "black")
+        this.svg.appendChild(background);
         
         for (let x = 0; x < this.gridSize; x++)
         {

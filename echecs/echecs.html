@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>N.R. games</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="echecs.css">
+    </head>
+    
+    <body>
+        <div class="side-panel">
+            <img class= "logo" src="../img/logo.png">
+            <a href="../index.html">Home</a>
+            <a href="../morpions/morpions.html">Morpions</a>
+            <a href="echecs.html"><b>Échecs</b></a>
+        </div>
+        
+        <div class="main-content">
+            <h1>Échecs</h1>
+            <p class="intro"> Voici notre jeu d'Échecs ! <br> Choississez de jouer contre vos amis, ou contre l'ordinateur pour vous exercer !</p>
+            <svg id="board"></svg>
+            <br>
+            <button class="btn" id="flip">Flip</button><br>
+            <br>
+            <button class="btn" id="pvp">Joueur vs Joueur</button>
+            <button class="btn" id="pvc">Joueur vs Ordinateur</button><br>
+            <button class="btn" id="cvc">Ordinateur vs Ordinateur</button><br>
+            <br>
+        </div>
+
+        <script src="game.js" type="module"></script>
+        <script src="display.js" type="module"></script>
+        <script src="script.js" type="module"></script>
+    </body>
+</html>
+

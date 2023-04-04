@@ -1,0 +1,53 @@
+.btn {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 3px;
+    color : whitesmoke;
+    border-color: whitesmoke;
+}
+
+#board {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: 70%;
+    position: relative;
+}
+
+#popup {
+    background-color: rgba(112, 110, 110, 0.646);
+    height: auto;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 2px;
+    font-size : 16px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+/* Slider controls */
+.slider {
+    -webkit-appearance: none;
+    height: 10px;
+    background: none;
+    border-radius: 4px;
+    outline: white solid 2px;
+    -webkit-transition: .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #ffffff;
+    cursor: pointer;
+}

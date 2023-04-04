@@ -11,7 +11,6 @@ var winnerText = document.getElementById("winner");
 var game = new Game(gridSize, winCondition, boardSvg, winnerText);
 
 var mode = "pvp";
-var isThinking = false;
 
 // ----------------------- OP Mode FUNCTIONS -----------------------//
 
@@ -38,18 +37,20 @@ function isAI()
 
 function AIDoMove()
 {
-    isThinking = true;
+    if (!game.isPlaying || game.isThinking)
+        return;
+
+    game.isThinking = true;
     setTimeout(() => {
         let ai = new AI(game);
         let move = ai.getMove();
 
         if (!move) {
             console.log("AI couldn't find move");
-            isThinking = false;
+            game.isThinking = false;
             return;
         }
 
-        console.log(move);
         game.changeSymbol(move[0], move[1], game.turn);
 
         let line = game.findWinnerLine(move[0], move[1], game.turn);
@@ -64,18 +65,18 @@ function AIDoMove()
         // Changement de tour
         game.turn = game.getOppositeSymbol(game.turn);
 
-        isThinking = false;
+        game.isThinking = false;
 
         if (mode == "cvc") {
             play();
         }
-    }, Math.random()*300+200);
+    }, Math.random()*200+200);
 }
 
 function play(event)
 {
     // Si le jeu n'est pas en cours on return
-    if (!game.isPlaying || isThinking)
+    if (!game.isPlaying || game.isThinking)
         return;
         
     // Human(s) turn to play
@@ -112,6 +113,10 @@ function play(event)
         }
     }
 
+    // Si le jeu n'est pas en cours on return
+    if (!game.isPlaying || game.isThinking)
+        return;
+
     // AI 1's turn to play
     if (isAI()) {
         AIDoMove();
@@ -127,24 +132,37 @@ function gameModes()
     
     // Mode de jeu (joueur contre joueur)
     playerVsPlayer.addEventListener("click", function(event) {
-        mode = "pvp";
-        game.clearBoard();
-        game = new Game(gridSize, winCondition, boardSvg, winnerText);
+        game.isPlaying = false
+        setTimeout(() => {
+            mode = "pvp";
+            game.clearBoard();
+            game = new Game(gridSize, winCondition, boardSvg, winnerText);
+        }, 600);
     });
     
     // Mode de jeu (joueur contre ordinateur (A FAIRE))
     playerVsComputer.addEventListener("click", function(event) {
-        mode = "pvc";
-        game.clearBoard();
-        game = new Game(gridSize, winCondition, boardSvg, winnerText);
+        game.isPlaying = false
+        setTimeout(() => {
+            mode = "pvc";
+            game.clearBoard();
+            game = new Game(gridSize, winCondition, boardSvg, winnerText);
+
+            if (game.turn == game.aiTurn) {
+                play();
+            }
+        }, 600);
     });
 
     // Mode de jeu (joueur contre ordinateur (A FAIRE))
     computerVsComputer.addEventListener("click", function(event) {
-        mode = "cvc";
-        game.clearBoard();
-        game = new Game(gridSize, winCondition, boardSvg, winnerText);
-        play();
+        game.isPlaying = false
+        setTimeout(() => {
+            mode = "cvc";
+            game.clearBoard();
+            game = new Game(gridSize, winCondition, boardSvg, winnerText);
+            play();
+        }, 600);
     });
 }
     
