@@ -26,7 +26,9 @@ function clearBoard(boardSVG) {
 }
 function resizeBoard(boardSVG) {
     // On veut un carré donc : height = width 
-    boardSVG.style.width = boardSVG.clientHeight + "px";
+    // let size = Math.min(boardSVG.style.width, boardSVG.style.height);
+    // boardSVG.style.width = size + "px";
+    // boardSVG.style.height = size + "px";
 }
 
 function drawSquares(boardSVG) {

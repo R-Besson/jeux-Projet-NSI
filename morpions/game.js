@@ -41,7 +41,10 @@ class Game {
         this.resizeBoard();
         
         // On veut un carré donc : height = width 
-        this.svg.style.height = this.svg.clientWidth + "px";
+        let size = Math.min(this.svg.style.width, this.svg.style.height);
+        // this.svg.style.width = size + "px";
+        // this.svg.style.height = size + "px";
+    
         let squareSize = Math.floor(this.svg.clientWidth / this.gridSize);
 
         let background = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
