@@ -39,8 +39,10 @@ class AI {
             }
         }
 
-        newFriendlyCount = heuristicFunction(newFriendlyCount);
-
+        if (this.game.gridSize == 3) {
+            newFriendlyCount = heuristicFunction(newFriendlyCount);
+        }
+        
         return {newFriendlyCount, newEnemyCount};
     }
 
@@ -49,7 +51,7 @@ class AI {
         // we want to maximize this
         let friendlyCount = -Infinity;
         // Number of neighboring squares that has the oppositite symbol as AI
-        // we want to minimize this
+        // we want to maximize this
         let enemyCount = -Infinity;
 
         let bestMove = null;

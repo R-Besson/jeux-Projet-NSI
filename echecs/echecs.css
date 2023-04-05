@@ -44,10 +44,3 @@
     background: #ffffff;
     cursor: pointer;
 }
-
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #ffffff;
-    cursor: pointer;
-}

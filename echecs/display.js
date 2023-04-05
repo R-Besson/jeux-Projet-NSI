@@ -98,6 +98,13 @@ function drawNumbers(boardSVG, flipped)
         rankNumber.setAttribute("style", "font: bold 12px monospace;");
         rankNumber.innerHTML = flipped ? (y+1).toString() : (7-y+1).toString();
 
+        // Opposite font color (x=0)
+        if ((0+y) % 2 == 0) {
+            rankNumber.setAttribute('fill', Colors.BlackSquare);
+        } else {
+            rankNumber.setAttribute('fill', Colors.WhiteSquare);
+        }
+
         boardSVG.appendChild(rankNumber);
     }
 
@@ -111,6 +118,13 @@ function drawNumbers(boardSVG, flipped)
         fileLetter.setAttribute("text-anchor", "middle");
         fileLetter.setAttribute("style", "font: bold 12px monospace;");
         fileLetter.innerHTML = flipped ? FileSymbols[7-x] : FileSymbols[x];
+
+        // Opposite font color (y=7)
+        if ((x+7) % 2 == 0) {
+            fileLetter.setAttribute('fill', Colors.BlackSquare);
+        } else {
+            fileLetter.setAttribute('fill', Colors.WhiteSquare);
+        }
 
         boardSVG.appendChild(fileLetter);
     }
