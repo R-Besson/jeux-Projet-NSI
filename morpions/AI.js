@@ -39,7 +39,7 @@ class AI {
             }
         }
 
-        if (this.game.gridSize == 3) {
+        if (this.game.gridSize != 3) {
             newFriendlyCount = heuristicFunction(newFriendlyCount);
         }
         
