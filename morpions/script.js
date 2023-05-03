@@ -7,7 +7,7 @@ var winCondition = 3; // by default 3 symbols to win
 
 var boardSvg = document.getElementById("board") // La <svg> grille
 var winnerText = document.getElementById("winner");
-
+var popup = document.getElementById("popup")
 var game = new Game(gridSize, winCondition, boardSvg, winnerText);
 
 var mode = "pvp";
@@ -87,9 +87,9 @@ function play(event)
         if (!game.mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY))
             return;
 
-        for (let x = 0; x < gridSize; x++)
+        for (let x = 0; x < game.gridSize; x++)
         {
-            for (let y = 0; y < gridSize; y++)
+            for (let y = 0; y < game.gridSize; y++)
             {
                 // Zone pour le clique du Carré
                 zone = game.board[x][y].htmlElement.getBoundingClientRect()
@@ -103,15 +103,23 @@ function play(event)
                         game.drawLine(line[0].htmlElement, line[1].htmlElement);
                         game.isPlaying = false; // Jeu pas en cours
                         winnerText.innerHTML = game.turn == states.X ? "Player X  " : "Player O  ";
+                        popup.style.display = "block";
                         return;
                     }
 
                     // Changement de tour
                     game.turn = game.getOppositeSymbol(game.turn);
+                    break;
                 }
             }
         }
     }
+
+    if (game.isDraw()){
+        game.isPlaying = false;
+        popup.style.display = "block";
+    }
+
 
     // Si le jeu n'est pas en cours on return
     if (!game.isPlaying || game.isThinking)
@@ -135,6 +143,7 @@ function gameModes()
         game.isPlaying = false
         setTimeout(() => {
             mode = "pvp";
+            popup.style.display = "none";
             game.clearBoard();
             game = new Game(gridSize, winCondition, boardSvg, winnerText);
         }, 600);
@@ -145,6 +154,7 @@ function gameModes()
         game.isPlaying = false
         setTimeout(() => {
             mode = "pvc";
+            popup.style.display = "none";
             game.clearBoard();
             game = new Game(gridSize, winCondition, boardSvg, winnerText);
 
@@ -154,11 +164,12 @@ function gameModes()
         }, 600);
     });
 
-    // Mode de jeu (joueur contre ordinateur (A FAIRE))
+    // Mode de jeu (joueur contre ordinateur)
     computerVsComputer.addEventListener("click", function(event) {
         game.isPlaying = false
         setTimeout(() => {
             mode = "cvc";
+            popup.style.display = "none";
             game.clearBoard();
             game = new Game(gridSize, winCondition, boardSvg, winnerText);
             play();
