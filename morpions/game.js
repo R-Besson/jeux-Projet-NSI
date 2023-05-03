@@ -139,6 +139,19 @@ class Game {
         this.svg.appendChild(symbol);
     }
 
+    isDraw(){
+        Symbol = 0;
+        for (let x=0; x<this.gridSize; x++){
+            for (let y=0; y<this.gridSize; y++){
+            if (this.board[x][y].state == states.Empty){Symbol ++}
+        }}
+        if (Symbol == 0){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     // Dessiner la ligne (rouge) du gagnant
     drawLine(startElement, endElement)
@@ -214,6 +227,8 @@ class Game {
                 }
             }
 
+
+
             // S'il y a au moins le nombre de symboles nécessaires pour gagner, c'est une victoire
             // Le "1" vient du carré en (x,y) qui n'est pas compté
             if (backward + forward + 1 >= this.winCondition)
@@ -223,6 +238,8 @@ class Game {
         // Pas de ligne
         return null;
     }
+
+
 }
 
 export {states, dirsX4, dirsY4, dirsX8, dirsY8, Case, Game};

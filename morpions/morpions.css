@@ -15,6 +15,7 @@
 }
 
 #popup {
+    display: none;
     background-color: rgba(112, 110, 110, 0.646);
     height: auto;
     border-radius: 5px;
