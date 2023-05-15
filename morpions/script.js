@@ -70,7 +70,7 @@ function AIDoMove()
         if (mode == "cvc") {
             play();
         }
-    }, Math.random()*200+200);
+    }, Math.random()*400+200);
 }
 
 function play(event)

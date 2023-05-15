@@ -20,7 +20,7 @@ body {
     width: 200px;
     height: 100vh;
     background-color: #010203;
-    overflow: auto;
+    overflow: hidden;
     font-size: 20px;
 }
 
@@ -29,12 +29,11 @@ body {
     margin-left: 200px;
     overflow: auto;
     text-align: center;
+    width: calc(100vw - 200px);
 }
 
 .logo{
-    margin: 0;
     padding: 0;
-    margin-left: 2.5%;
     width: 85%;
     position : relative;
 }
@@ -49,7 +48,6 @@ h1 {
     height: auto;
     border-radius: 5px;
     text-align: center;
-    box-shadow: 2px;
     font-size : 16px;
     margin-left: 15%;
     margin-right: 15%;
@@ -59,9 +57,12 @@ h1 {
 }
 
 .jeux{
+    display: flex;
+    flex-direction: row;
+    gap : 15px;
     font-weight: bold;
     font-size: 24px;
-    float : left;
+    float: left;
     margin-left : 10%;
     margin-top : 10%;
 }
