@@ -31,6 +31,7 @@ class AI {
             if (!this.game.inBoard(x+dx, y+dy))
                 continue;
             
+            
             let oppositeSymbol = this.game.getOppositeSymbol(symbol);
             if (this.game.board[x+dx][y+dy].state == oppositeSymbol) {
                 newEnemyCount++;
@@ -49,12 +50,13 @@ class AI {
     getMove() {
         // Number of neighboring squares that has the same symbol as AI
         // we want to maximize this
-        let friendlyCount = -Infinity;
+        let friendlyCount = -1;
         // Number of neighboring squares that has the oppositite symbol as AI
         // we want to maximize this
-        let enemyCount = -Infinity;
+        let enemyCount = -1;
 
         let bestMove = null;
+        let danger = false;
 
         for (let x = 0; x < this.game.gridSize; x++) {
             for (let y = 0; y < this.game.gridSize; y++) {
@@ -76,7 +78,8 @@ class AI {
                         // Opposite player can win by placing symbol at x,y
                         // AI needs to prevent this
                         this.game.board[x][y].state = states.Empty;
-                        return [x,y];
+                        danger = true;
+                        bestMove = [x,y];
                     }
                     this.game.board[x][y].state = states.Empty;
 
@@ -85,7 +88,9 @@ class AI {
                     let {newFriendlyCount, newEnemyCount} = this.getNeighborCounts(x,y,this.game.turn);
 
                     if (newFriendlyCount > friendlyCount) {
+                        if (!danger){
                         bestMove = [x,y];
+                        }
                         friendlyCount = newFriendlyCount;
                         enemyCount = newEnemyCount;
                     }
@@ -93,12 +98,12 @@ class AI {
                         continue;
                     
                     if (newEnemyCount > enemyCount) {
-                        bestMove = [x,y];
+                        if (!danger){
+                            bestMove = [x,y];
+                            }
                         friendlyCount = newFriendlyCount;
                         enemyCount = newEnemyCount;
                     }
-                    if (newEnemyCount != enemyCount)
-                        continue;
                 }
             }
         }
