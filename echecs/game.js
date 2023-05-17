@@ -56,8 +56,10 @@ class Game {
         }
 
         if (FEN) {
+            // Custom position
             this.loadFenString(FEN);
         } else {
+            // Default position
             this.loadFenString("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
         }
     };

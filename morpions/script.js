@@ -62,9 +62,15 @@ function AIDoMove()
             winnerText.innerHTML = game.turn == states.X ? "Player X  " : "Player O  ";
         }
 
+        if (game.isDraw())
+        {
+            game.isPlaying = false;
+            popup.style.display = "block";
+            return;
+        }
+
         // Changement de tour
         game.turn = game.getOppositeSymbol(game.turn);
-
         game.isThinking = false;
 
         if (mode == "cvc") {
@@ -120,7 +126,6 @@ function play(event)
         popup.style.display = "block";
     }
 
-
     // Si le jeu n'est pas en cours on return
     if (!game.isPlaying || game.isThinking)
         return;
@@ -128,6 +133,11 @@ function play(event)
     // AI 1's turn to play
     if (isAI()) {
         AIDoMove();
+    }
+
+    if (game.isDraw()){
+        game.isPlaying = false;
+        popup.style.display = "block";
     }
 }
 

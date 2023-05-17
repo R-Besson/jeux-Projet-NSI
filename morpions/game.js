@@ -139,18 +139,17 @@ class Game {
         this.svg.appendChild(symbol);
     }
 
-    isDraw(){
-        Symbol = 0;
-        for (let x=0; x<this.gridSize; x++){
-            for (let y=0; y<this.gridSize; y++){
-            if (this.board[x][y].state == states.Empty){Symbol ++}
-        }}
-        if (Symbol == 0){
-            return true;
+    isDraw()
+    {
+        let Symbols = 0;
+        for (let x=0; x<this.gridSize; x++) {
+            for (let y=0; y<this.gridSize; y++) {
+                if (this.board[x][y].state == states.Empty) {
+                    Symbols++;
+                }
+            }
         }
-        else {
-            return false;
-        }
+        return Symbols == 0;
     }
 
     // Dessiner la ligne (rouge) du gagnant

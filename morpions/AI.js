@@ -1,14 +1,6 @@
 import {states, dirsX8, dirsY8} from "./game.js";
 
-// Cette fonction est max quand x=1 mais donne également un score décroissant linéairement pour x dans ]1,7]
-// C'est utile pour l'IA : on veut former une ligne donc on priorise quand neighborCount vaut 1 ...
-var a = -2.8
-var b = 1.8
-var z = -0.82
-var c = 0
-function heuristicFunction(x) {
-    return Math.max(-Math.pow(x+a, 2) - b*(x+a) + c + Math.pow(Math.max(x+a-z, -1), 2), 0);
-}
+var weights = [0,6,6,5,4,3,2,1,0]
 
 // AI Class
 class AI {
@@ -41,7 +33,7 @@ class AI {
         }
 
         if (this.game.gridSize != 3) {
-            newFriendlyCount = heuristicFunction(newFriendlyCount);
+            newFriendlyCount = weights[newFriendlyCount];
         }
         
         return {newFriendlyCount, newEnemyCount};
