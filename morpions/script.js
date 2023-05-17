@@ -90,7 +90,7 @@ function play(event)
         // Si le clic ne s'est pas produit dans le tableau <svg>
         // nous quittons (pour pas rentrer dans la coûteuse boucle for)
         let zone = boardSvg.getBoundingClientRect()
-        if (!game.mouseIn(zone.x, zone.y, zone.width, zone.height, event.clientX, event.clientY))
+        if (!game.mouseIn(zone.x,zone.y, zone.width, zone.height, event.clientX, event.clientY))
             return;
 
         for (let x = 0; x < game.gridSize; x++)

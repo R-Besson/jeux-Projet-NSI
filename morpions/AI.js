@@ -80,8 +80,8 @@ class AI {
                     let {newFriendlyCount, newEnemyCount} = this.getNeighborCounts(x,y,this.game.turn);
 
                     if (newFriendlyCount > friendlyCount) {
-                        if (!danger){
-                        bestMove = [x,y];
+                        if (!danger) {
+                            bestMove = [x,y];
                         }
                         friendlyCount = newFriendlyCount;
                         enemyCount = newEnemyCount;
@@ -90,9 +90,9 @@ class AI {
                         continue;
                     
                     if (newEnemyCount > enemyCount) {
-                        if (!danger){
+                        if (!danger) {
                             bestMove = [x,y];
-                            }
+                        }
                         friendlyCount = newFriendlyCount;
                         enemyCount = newEnemyCount;
                     }
