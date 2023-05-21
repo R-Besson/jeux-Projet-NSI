@@ -6,7 +6,7 @@ var boardSVG = document.getElementById("board");
 var flipBoardButton = document.getElementById("flip");
 
 // Main
-var game = new Game("rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2");
+var game = new Game();
 
 drawBoard(boardSVG, game.board, true, false, "./img/");
 

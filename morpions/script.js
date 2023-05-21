@@ -159,7 +159,7 @@ function gameModes()
         }, 600);
     });
     
-    // Mode de jeu (joueur contre ordinateur (A FAIRE))
+    // Mode de jeu (joueur contre ordinateur )
     playerVsComputer.addEventListener("click", function(event) {
         game.isPlaying = false
         setTimeout(() => {

@@ -27,7 +27,7 @@ class AI {
             let oppositeSymbol = this.game.getOppositeSymbol(symbol);
             if (this.game.board[x+dx][y+dy].state == oppositeSymbol) {
                 newEnemyCount++;
-            } else if(this.game.board[x+dx][y+dy].state == symbol) {
+            } else if (this.game.board[x+dx][y+dy].state == symbol) {
                 newFriendlyCount++;
             }
         }
