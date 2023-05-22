@@ -18,20 +18,26 @@ const PieceSVGs = [
 
 const Colors = {
     WhiteSquare: "#eeeed2",
-    BlackSquare: "#769656"
+    BlackSquare: "#769656",
+    SelectedWhiteSquare: "#d4d4ba",
+    SelectedBlackSquare: "#607a46"
 }
 
-function clearBoard(boardSVG) {
+function clearBoard(boardSVG)
+{
     boardSVG.innerHTML = "";
 }
-function resizeBoard(boardSVG) {
+
+function resizeBoard(boardSVG)
+{
     // On veut un carré donc : height = width 
     // let size = Math.min(boardSVG.style.width, boardSVG.style.height);
     // boardSVG.style.width = size + "px";
     // boardSVG.style.height = size + "px";
 }
 
-function drawSquares(boardSVG) {
+function drawSquares(boardSVG, board)
+{
     let squareSize = Math.floor(boardSVG.clientWidth / 8);
 
     for (let x = 0; x < 8; x++)
@@ -54,31 +60,38 @@ function drawSquares(boardSVG) {
             square.setAttribute('stroke','grey');
             square.setAttribute('stroke-width', 1);
 
+            board[x][7-y].squareElement = square;
+            
             boardSVG.appendChild(square);
         }
     }
+
+    console.log(board)
 }
 
-function drawPieces(boardSVG, board, SVGsPath, flipped) {
+function drawPieces(boardSVG, board, SVGsPath, flipped)
+{
     let squareSize = Math.floor(boardSVG.clientWidth / 8);
 
     for (let x = 0; x < 8; x++)
     {
         for (let y = 0; y < 8; y++)
         {
-            let piece = flipped ? (board[7-x][y]) : (board[x][7-y]);
+            let piece = (flipped ? (board[7-x][y]) : (board[x][7-y])).piece;
             if (piece == Pieces.empty) {
                 continue;
             }
 
             let embeddedSvg = document.createElementNS("http://www.w3.org/2000/svg", 'image');
             let offset = Math.floor(squareSize/8.5);
-            
+
             embeddedSvg.setAttribute('x', x*squareSize + offset);
             embeddedSvg.setAttribute('y', y*squareSize + offset);
             embeddedSvg.setAttribute('height', squareSize - 2*offset);
             embeddedSvg.setAttribute('width', squareSize - 2*offset);
             embeddedSvg.setAttribute('href', SVGsPath+PieceSVGs[piece]);
+
+            board[x][7-y].pieceElement = embeddedSvg;
 
             boardSVG.appendChild(embeddedSvg);
         }
@@ -132,10 +145,11 @@ function drawNumbers(boardSVG, flipped)
     }
 }
 
-function drawBoard(boardSVG, board, showNumbers, flipped, pieceSVGsPath) {
+function drawBoard(boardSVG, board, showNumbers, flipped, pieceSVGsPath)
+{
     clearBoard(boardSVG);
-    resizeBoard(boardSVG);
-    drawSquares(boardSVG);
+    resizeBoard(boardSVG, board);
+    drawSquares(boardSVG, board);
     drawPieces(boardSVG, board, pieceSVGsPath, flipped);
 
     if (showNumbers) {
@@ -143,4 +157,12 @@ function drawBoard(boardSVG, board, showNumbers, flipped, pieceSVGsPath) {
     }
 }
 
-export {drawBoard};
+var previousSelectedSquare = null;
+function selectSquare(board, x, y)
+{
+    if (board[x] && board[x][y]) {
+        board[x][y].
+    }
+}
+
+export {drawBoard, selectSquare};
