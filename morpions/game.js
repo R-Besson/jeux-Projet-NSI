@@ -6,6 +6,7 @@ const states = {
     O: -1
 };
 
+
 const dirsX4 = [1,0,1, 1];
 const dirsY4 = [0,1,1,-1];
 

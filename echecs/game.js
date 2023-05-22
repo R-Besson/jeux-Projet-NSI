@@ -34,6 +34,16 @@ const Color = {
     w: 0, // White  /   Blanc
     b: 1  // Black  /   Noir
 };
+const ColorSymbols = ['w',"b"];
+
+class Square {
+    constructor(piece, squareElement, pieceElement)
+    {
+        this.piece = piece;
+        this.squareElement = squareElement;
+        this.pieceElement = pieceElement;
+    }
+}
 
 class Game {
     constructor(FEN) {
@@ -52,7 +62,7 @@ class Game {
 
         this.board = new Array(8);
         for (let i = 0; i < 8; i++) {
-            this.board[i] = new Array(8).fill(Pieces.empty);
+            this.board[i] = new Array(8);
         }
 
         if (FEN) {
@@ -89,13 +99,26 @@ class Game {
             {
                 let char = rank.charAt(j);
                 if (isNaN(char)) {
-                    this.board[file][y] = Pieces[char];
+                    this.board[file][y] = new Square(Pieces[char], null, null);
                     file++;
                 } else {
                     file += parseInt(char);
                 }
             }
         }
+
+        for (let x = 0; x < 8; x++)
+        {
+            if (!this.board[x])
+                this.board[x] = [];
+
+            for (let y = 0; y < 8; y++)
+            {
+                if (!(this.board[x][y]))
+                    this.board[x][y] = new Square(Pieces.empty, null, null);
+            }
+        }
+        // console.log(this.board)
 
         // Set Up Color
         this.turn = Color[activeColor];
@@ -117,6 +140,8 @@ class Game {
         this.nbMoves = parseInt(fullMoveNumber);
     }
 
+
+    // for debugging
     printBoard() {
         let boardString = "-----------------\n";
         for (let y = 7; y >= 0; y--)
@@ -124,7 +149,7 @@ class Game {
             boardString += '|';
             for (let x = 0; x < 8; x++)
             {
-                boardString += PieceSymbols[this.board[x][y]] + "|";
+                boardString += PieceSymbols[this.board[x][y].piece] + "|";
             }
             boardString += '\n-----------------\n';
         }
