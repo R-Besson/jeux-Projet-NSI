@@ -65,8 +65,6 @@ function drawSquares(boardSVG, board)
             boardSVG.appendChild(square);
         }
     }
-
-    console.log(board)
 }
 
 function drawPieces(boardSVG, board, SVGsPath, flipped)
@@ -157,16 +155,26 @@ function drawBoard(boardSVG, board, showNumbers, flipped, pieceSVGsPath)
     }
 }
 
-var previousSelectedSquare = null;
-function selectSquare(board, x, y)
+var previousSelected = null;
+function displaySelectedSquare(board, x, y)
 {
-    if (board[x] && board[x][y]) {
-        if ((x+y) % 2 == 0) {
-            board[x][y].squareElement.setAttribute('fill', Colors.SelectedWhiteSquare);
+    if (previousSelected) {
+        let previousX = previousSelected.x, previousY = previousSelected.y;
+        if ((previousX+previousY) % 2 == 0) {
+            board[previousX][previousY].squareElement.setAttribute('fill', Colors.BlackSquare);
         } else {
-            board[x][y].squareElement.setAttribute('fill', Colors.SelectedBlackSquare);
+            board[previousX][previousY].squareElement.setAttribute('fill', Colors.WhiteSquare);
         }
+    }
+
+    if (board[x] && board[x][y] && board[x][y].squareElement) {
+        if ((x+y) % 2 == 0) {
+            board[x][y].squareElement.setAttribute('fill', Colors.SelectedBlackSquare);
+        } else {
+            board[x][y].squareElement.setAttribute('fill', Colors.SelectedWhiteSquare);
+        }
+        previousSelected = {x,y};
     }
 }
 
-export {drawBoard, selectSquare};
+export {drawBoard, displaySelectedSquare};
