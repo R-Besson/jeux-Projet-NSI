@@ -161,7 +161,7 @@ var previousSelectedSquare = null;
 function selectSquare(board, x, y)
 {
     if (board[x] && board[x][y]) {
-        board[x][y].
+        board[x][y].squareElement
     }
 }
 
