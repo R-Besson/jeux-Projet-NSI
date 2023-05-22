@@ -161,7 +161,11 @@ var previousSelectedSquare = null;
 function selectSquare(board, x, y)
 {
     if (board[x] && board[x][y]) {
-        board[x][y].squareElement
+        if ((x+y) % 2 == 0) {
+            board[x][y].squareElement.setAttribute('fill', Colors.SelectedWhiteSquare);
+        } else {
+            board[x][y].squareElement.setAttribute('fill', Colors.SelectedBlackSquare);
+        }
     }
 }
 
