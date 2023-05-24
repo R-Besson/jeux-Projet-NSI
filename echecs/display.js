@@ -1,3 +1,4 @@
+import { states } from "../morpions/game.js";
 import {File, FileSymbols, Pieces, PieceSymbols, Color, Game} from "./game.js";
 
 const PieceSVGs = [
@@ -177,4 +178,44 @@ function displaySelectedSquare(board, x, y)
     }
 }
 
-export {drawBoard, displaySelectedSquare};
+let previousCoordsList = null;
+function displayDots(board, boardSVG, coordsList)
+{
+    if (previousCoordsList)
+    {
+        for (let {x,y} of previousCoordsList)
+        {
+            if (!(board[x] && board[x][y] && board[x][y].squareElement && board[x][y].circleElement))
+                continue;
+
+                boardSVG.removeChild(board[x][y].circleElement);
+        }
+    }
+
+    let squareSize = Math.floor(boardSVG.clientWidth / 8);
+
+    for (let {x,y} of coordsList)
+    {
+        if (!(board[x] && board[x][y]))
+            continue;
+        if (board[x][y].piece !== Pieces.empty)
+            continue;
+        
+            console.log(x,y)
+
+        // Create circle element
+        var circle = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        circle.setAttribute('cx', squareSize*x+squareSize/2);
+        circle.setAttribute('cy', squareSize*y+squareSize/2);
+        circle.setAttribute('r', squareSize/8);
+        circle.setAttribute('fill', "rgba(30,30,30,0.5)");
+        board[x][y].circleElement = circle;
+        boardSVG.appendChild(circle)
+
+        console.log(circle)
+    }
+
+    previousCoordsList = coordsList
+}
+
+export {drawBoard, displaySelectedSquare, displayDots};

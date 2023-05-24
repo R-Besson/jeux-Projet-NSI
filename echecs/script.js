@@ -1,5 +1,5 @@
 import {File, FileSymbols, Pieces, PieceSymbols, Color, Game} from "./game.js";
-import {drawBoard, displaySelectedSquare} from "./display.js";
+import {drawBoard, displaySelectedSquare, displayDots} from "./display.js";
 
 // Elements
 var boardSVG = document.getElementById("board");
@@ -33,6 +33,8 @@ boardSVG.addEventListener("click", (event) => {
 
     if (selected && previousSelected !== selected) {
         displaySelectedSquare(game.board, selected.x, selected.y);
+
+        displayDots(game.board, boardSVG, [{x:4,y:4},{x:5,y:5}])
 
         previousSelected = selected;
     }

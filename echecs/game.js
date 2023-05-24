@@ -1,3 +1,5 @@
+import { states } from "../morpions/game";
+
 // Enum Files
 const File = {
     a: 0,
@@ -37,11 +39,12 @@ const Color = {
 const ColorSymbols = ['w',"b"];
 
 class Square {
-    constructor(piece, squareElement, pieceElement)
+    constructor(piece, squareElement, pieceElement, circleElement)
     {
         this.piece = piece;
         this.squareElement = squareElement;
         this.pieceElement = pieceElement;
+        this.circleElement = circleElement;
     }
 }
 
@@ -75,16 +78,20 @@ class Game {
     };
 
     // Methods
-    squareToCoordinates(square) {
+    squareToCoordinates(square)
+    {
         let x = File[square[0]]         // File Letter
         let y = parseInt(square[1])-1   // Rank Number
         return [x,y];
     }
-    coordinatesToSquare(x,y) {
+
+    coordinatesToSquare(x,y)
+    {
         return FileSymbols[x] + (y+1).toString();
     }
 
-    loadFenString(FEN) {
+    loadFenString(FEN)
+    {
         let [ranks, activeColor, castling, enPassantSquare, halfMoveClock, fullMoveNumber] = FEN.split(' ');
         ranks = ranks.split('/');
         ranks = ranks.reverse()
@@ -99,7 +106,7 @@ class Game {
             {
                 let char = rank.charAt(j);
                 if (isNaN(char)) {
-                    this.board[file][y] = new Square(Pieces[char], null, null);
+                    this.board[file][y] = new Square(Pieces[char], null, null, null);
                     file++;
                 } else {
                     file += parseInt(char);
@@ -115,7 +122,7 @@ class Game {
             for (let y = 0; y < 8; y++)
             {
                 if (!(this.board[x][y]))
-                    this.board[x][y] = new Square(Pieces.empty, null, null);
+                    this.board[x][y] = new Square(Pieces.empty, null, null, null);
             }
         }
         // console.log(this.board)
@@ -140,6 +147,47 @@ class Game {
         this.nbMoves = parseInt(fullMoveNumber);
     }
 
+    isInBoard(x,y)
+    {
+        return x >= 0 && x < 8 && y >= 0 && y < 8;
+    }
+
+    getPieceColor(piece)
+    {
+        if (piece == Pieces.empty)
+            return null;
+        return piece <= 6 ? Color.b : Color.w;
+    }
+
+    getMoves(x,y)
+    {
+        let square = this.board[x][y];
+        let piece = square.piece;
+        let moves = [];
+
+        if (piece == Pieces.empty)
+            return moves;
+        
+        let color = this.getPieceColor(piece);
+        let direction = (color === Color.w ? 1 : -1);
+        
+        switch (piece) {
+            case Pieces.empty:
+                return moves;
+            
+            case Pieces.P:
+            case Pieces.p:
+                // Up 1
+                if (this.isInBoard(x, y + direction) && this.board[x][y + direction].piece == Pieces.empty)
+                    moves.push({x:x, y:y+direction})
+                // Up 2
+                if (y == (color == Color.w ? 1 : 6) && this.isInBoard(x, y + direction*2) && this.board[x][y + direction*2].piece == Pieces.empty)
+                    moves.push({x:x, y:y+direction*2})
+                break;
+            
+            
+        }
+    }
 
     // for debugging
     printBoard() {
